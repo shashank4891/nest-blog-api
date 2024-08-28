@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
+import { User } from 'src/modules/users/user.entity';
 
 export const databaseProviders = [{
     provide: SEQUELIZE,
@@ -20,8 +21,9 @@ export const databaseProviders = [{
                 config = databaseConfig.development;
         }
         const sequelize = new Sequelize(config);
-        sequelize.addModels(['models go here']);  // Add your models here
+        sequelize.addModels([User]);  
         await sequelize.sync();
+        console.log('Database connected successfully and User table created!');
         return sequelize;
     },
 }];
